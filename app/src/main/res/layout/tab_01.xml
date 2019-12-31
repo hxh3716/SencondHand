@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="45dp"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="80dp"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp">
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/user"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+    <EditText
+        android:id="@+id/ed_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入您的用户名"
+        android:layout_weight="6"/>
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pwd"
+
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6">
+
+            <EditText
+                android:id="@+id/ed_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入您的密码"
+               />
+
+            <ImageView
+                android:id="@+id/image_eye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/eye"
+              />
+        </RelativeLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="180dp"
+        android:background="@color/blue"
+        android:text="登录"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+</LinearLayout>
