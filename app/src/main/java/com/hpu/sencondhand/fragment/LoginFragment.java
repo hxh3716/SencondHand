@@ -47,7 +47,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.tab_01, container, false);
+        rootView = inflater.inflate(R.layout.fragment_tab_01, container, false);
         ButterKnife.bind(this,rootView);
         return rootView;
     }
@@ -74,7 +74,7 @@ public class LoginFragment extends Fragment {
                 }
                 break;
             case R.id.btn_login:
-                login();
+              //  login();
                 Intent intent=new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();

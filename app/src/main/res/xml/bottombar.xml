@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/home"
+        title="首页" />
+    <tab
+        id="@+id/tab_release"
+        icon="@drawable/add"
+        title="发布闲置" />
+    <tab
+        id="@+id/tab_me"
+        icon="@drawable/me"
+        title="我的" />
+</PreferenceScreen>
