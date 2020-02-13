@@ -26,15 +26,120 @@
             android:textSize="22sp"
             android:textStyle="normal" />
     </Toolbar>
-
+        <com.hpu.sencondhand.widget.ClearEditText
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/ed_search"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/search"
+            android:background="@drawable/search_shape"
+            android:hint="Searching..."
+            android:theme="@style/MyEditText"
+            />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"></LinearLayout>
+        android:orientation="horizontal"
+        android:layout_weight="1.8">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/img_study"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                android:layout_weight="4"
+                android:src="@drawable/book"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="学习用品"/>
+        </LinearLayout>
+        //////////////////////////////////////////////电子用品
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/img_ele"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ele" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="电子用品"/>
+        </LinearLayout>
+        /////////////////////////////////////////////////生活用品
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/img_bag"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                android:layout_weight="4"
+                android:src="@drawable/schoolbag"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="生活用品"/>
+        </LinearLayout>
+        ////////////////////////////////////体育用品
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/img_soccer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                android:layout_weight="4"
+                android:src="@drawable/soccer"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="体育用品"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
     <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"></ListView>

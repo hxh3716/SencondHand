@@ -1,5 +1,9 @@
 package com.hpu.sencondhand.http;
 
+import com.hpu.sencondhand.fragment.HomeFragment;
+
+import java.util.logging.Handler;
+
 /**
  * Created by：何学慧
  * Detail:接口
@@ -7,6 +11,14 @@ package com.hpu.sencondhand.http;
  */
 
 public interface api {
-String Login="http://45.62.121.208:8080/secondhandapp/sighin";
-String Register="http://45.62.121.208:8080/secondhandapp/signup";
+String HOME="http://localhost:8080/";
+String LOGIN=HOME+"signin";
+String REGISTER=HOME+"signup";
+String ADDPRO=HOME+"addproduct";
+String GETALLPRODUCT=HOME+"getallproduct";
+String CHANGEPWD=HOME+"changepwd";
+String CHANGEPHONE=HOME+"changephone";
+String GETMYPRODUCT= HOME+"getmyproduct";
+String GETFAVORITE=HOME+"getfavorite";
+String CATEGORY=HOME+"category";
 }

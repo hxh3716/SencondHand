@@ -1,9 +1,11 @@
 package com.hpu.sencondhand.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.hpu.sencondhand.R;
 import com.hpu.sencondhand.activity.MainActivity;
+import com.hpu.sencondhand.bean.User;
 import com.hpu.sencondhand.util.StringCallBack;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -24,8 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+import okhttp3.MediaType;
 
-import static com.hpu.sencondhand.http.api.Login;
+import static android.content.Context.MODE_PRIVATE;
+
+import static com.hpu.sencondhand.http.api.REGISTER;
 
 /**
  * Created by：何学慧
@@ -34,6 +41,7 @@ import static com.hpu.sencondhand.http.api.Login;
  */
 
 public class LoginFragment extends Fragment {
+    private static final String TAG = "LoginFragment";
     @BindView(R.id.image_eye)
     ImageView mImgEye;
     @BindView(R.id.ed_user)
@@ -44,6 +52,7 @@ public class LoginFragment extends Fragment {
     Button mBtnLogin;
     private View rootView;
     private boolean isPwdVisible = false;
+    private SharedPreferences sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +83,7 @@ public class LoginFragment extends Fragment {
                 }
                 break;
             case R.id.btn_login:
-              //  login();
+              // login();
                 Intent intent=new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -94,20 +103,38 @@ public class LoginFragment extends Fragment {
             Toast.makeText(getContext(),"密码不能为空",Toast.LENGTH_SHORT).show();
             return;
         }
-        OkHttpUtils.post()
-                .url(Login)
-                .addParams("userid", mEdUser.getText().toString())
-                .addParams("password",mEdPwd.getText().toString())
+        OkHttpUtils.postString()
+                .url(REGISTER)
+                .content(new Gson().toJson(new User(mEdUser.getText().toString(), mEdPwd.getText().toString(), null)))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
                 .execute(new StringCallBack() {
-
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        Log.e(TAG, "onError: " + e);
+                        Toast.makeText(getContext(),"网络异常，请稍后再试",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        Log.d(TAG, "onResponse: " + response);
+                        if (response.equals("Message-001")){
+                            //登录成功，跳转界面
+                            Intent intent=new Intent(getActivity(), MainActivity.class);
+                           intent.putExtra("username",mEdUser.getText().toString());
+                            startActivity(intent);
+                            getActivity().finish();
+                            //存储用户的登录信息
+                            sp = getActivity().getSharedPreferences("info", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("username",mEdUser.getText().toString());
+                            editor.putString("password",mEdPwd.getText().toString());
+                            editor.commit();
+                        }else if (response.equals("Message-003")){
+                            Toast.makeText(getContext(),"用户名或密码错误",Toast.LENGTH_SHORT).show();
+                        }else if (response.equals("Message-000")){
+                            Toast.makeText(getContext(),"网络异常，请稍后再试",Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

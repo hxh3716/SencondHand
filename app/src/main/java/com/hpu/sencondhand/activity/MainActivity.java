@@ -3,6 +3,7 @@ package com.hpu.sencondhand.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -24,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private ReleaseFragemnt releaseFragemnt;
     private MeFragment meFragment;
+    private String username;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent=getIntent();
+        username=intent.getStringExtra("username");
         ButterKnife.bind(this);
         homeFragment=new HomeFragment();
         releaseFragemnt=new ReleaseFragemnt();

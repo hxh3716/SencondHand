@@ -9,5 +9,15 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">#8c8a8a</item>
+    </style>
+    <string-array name="category">
+        <item>学习用品</item>　　　
+        <item>电子用品</item>　　　
+        <item>生活用品</item>
+        <item>体育用品</item>
 
+    </string-array>
 </resources>
