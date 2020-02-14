@@ -1,6 +1,7 @@
 package com.hpu.sencondhand.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by：何学慧
  * Detail:我的界面fragment
@@ -27,6 +30,8 @@ import butterknife.OnClick;
 
 public class MeFragment extends Fragment {
     private View rootView;
+    @BindView(R.id.tx_owner)
+    TextView mTxOwner;
     @BindView(R.id.tx_myrelease)
     TextView mTxRelease;
     @BindView(R.id.tx_settings)
@@ -34,6 +39,7 @@ public class MeFragment extends Fragment {
     @BindView(R.id.tx_favorite)
     TextView mTxFavorite;
     private Intent intent;
+    private SharedPreferences sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +51,8 @@ public class MeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        sp = getActivity().getSharedPreferences("info", MODE_PRIVATE);
+        mTxOwner.setText(sp.getString("username",null));
     }
 
     @OnClick({R.id.tx_settings, R.id.tx_myrelease, R.id.tx_favorite})

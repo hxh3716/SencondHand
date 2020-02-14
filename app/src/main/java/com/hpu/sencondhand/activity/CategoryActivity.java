@@ -62,6 +62,7 @@ public class CategoryActivity extends AppCompatActivity {
     List<Product> messageInfoList = new ArrayList<>();
     private static final String TAG = "CategoryActivity";
     private SharedPreferences sp;
+    private List<String> idList;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -90,6 +91,7 @@ public class CategoryActivity extends AppCompatActivity {
                 intent.putExtra("price", messageInfoList.get(position).getPrie());
                 intent.putExtra("phone", messageInfoList.get(position).getContactDetail());
                 intent.putExtra("imgpath", messageInfoList.get(position).getImgPath());
+                intent.putExtra("id",idList.get(position));
                 startActivity(intent);
 
             }
@@ -194,14 +196,18 @@ public class CategoryActivity extends AppCompatActivity {
                         Product product = null;
                         Log.d(TAG, "onResponse: " + response);
                         try {
+                            idList=new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject category = jsonArray.getJSONObject(i);
                                 product = new Product();
                                 product.setOwner(category.getString("owner"));
                                 product.setTitle(category.getString("title"));
-                                product.setDetail(category.getString("contactDetail"));
+                                product.setContactDetail(category.getString("contactDetail"));
+                                product.setDetail(category.getString("decription"));
                                 product.setPrie(category.getString("price"));
+                                product.setImgPath(category.getString("imgPath"));
+                                idList.add(category.getString("id"));
                                 messageInfoList.add(product);
                             }
                             if (messageInfoList.size() != 0) {

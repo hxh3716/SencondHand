@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,10 +24,13 @@ import com.google.gson.Gson;
 import com.hpu.sencondhand.R;
 import com.hpu.sencondhand.bean.Product;
 import com.hpu.sencondhand.bean.User;
+import com.hpu.sencondhand.util.ImgPath;
 import com.hpu.sencondhand.util.StringCallBack;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,6 +94,7 @@ public class ReleaseFragemnt extends Fragment {
                 break;
             case R.id.btn_release:
                 //提交商品信息数据到后台
+                subInfo();
                 break;
         }
     }
@@ -110,10 +115,18 @@ public class ReleaseFragemnt extends Fragment {
     }
 
     public void subInfo() {
+        //发布时信息填写不完整不能继续执行
+        if (((BitmapDrawable) mImgAdd.getDrawable()).getBitmap() == null || mEdTitle.getText().toString().equals("") || mEdprice.getText().toString().equals("") || mEdPhone.getText().toString().equals("") || mEddetail.getText().toString().equals("")) {
+            Toast.makeText(getContext(), "信息填写不完整", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //获取当前时间作为图片名称
+        SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+        String filename = format.format(new Date());
         sp = getActivity().getSharedPreferences("info", MODE_PRIVATE);
         OkHttpUtils.postString()
                 .url(ADDPRO)
-                .content(new Gson().toJson(new Product(sp.getString("username", null), "123", mEdTitle.getText().toString(), mSpCategory.getSelectedItem().toString(), mEdprice.getText().toString(), mEdPhone.getText().toString(), mEddetail.getText().toString())))
+                .content(new Gson().toJson(new Product(sp.getString("username", null), filename, mEdTitle.getText().toString(), mSpCategory.getSelectedItem().toString(), mEdprice.getText().toString(), mEdPhone.getText().toString(), mEddetail.getText().toString())))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
                 .execute(new StringCallBack() {
@@ -128,6 +141,9 @@ public class ReleaseFragemnt extends Fragment {
                         Log.d(TAG, "onResponse: " + response);
                         if (response.equals("Message-001")) {
                             Toast.makeText(getContext(), "上传成功", Toast.LENGTH_SHORT).show();
+                            //上传成功后保存图片到本地
+                            Bitmap bitmap = ((BitmapDrawable) mImgAdd.getDrawable()).getBitmap();
+                            ImgPath.savaImage(filename, getContext(), bitmap);
                         }
                     }
                 });

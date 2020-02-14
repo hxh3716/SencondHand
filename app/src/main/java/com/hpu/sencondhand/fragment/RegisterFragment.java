@@ -42,15 +42,11 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.ed_pwd)
     EditText mEdPwd;
     @BindView(R.id.ed_tele)
-    EditText mEdTele;
-    @BindView(R.id.ed_major)
-    EditText mEdMajor;
+    EditText mEdPhone;
     @BindView(R.id.ed_pwdagain)
     EditText mEdPwdAgain;
     @BindView(R.id.btn_reg)
     Button mBtnReg;
-    @BindView(R.id.ed_name)
-    EditText mEdName;
 
     private View rootView;
 
@@ -79,9 +75,22 @@ public class RegisterFragment extends Fragment {
      * 点击注册按钮后调用，访问接口
      */
     public void reg() {
+        if (mEdUser.getText().toString().equals("")){
+            Toast.makeText(getContext(),"用户名不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }else if (mEdPhone.getText().toString().equals("")){
+            Toast.makeText(getContext(),"电话不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }else if (mEdPwd.getText().toString().equals("")||mEdPwdAgain.getText().toString().equals("")){
+            Toast.makeText(getContext(),"密码不能为空",Toast.LENGTH_SHORT).show();
+            return;
+        }else if (!mEdPwd.getText().toString().equals(mEdPwdAgain.getText().toString())){
+            Toast.makeText(getContext(),"两次输入密码不同",Toast.LENGTH_SHORT).show();
+            return;
+        }
         OkHttpUtils.postString()
                 .url(REGISTER)
-                .content(new Gson().toJson(new User("李四", "123", "12345679876")))
+                .content(new Gson().toJson(new User(mEdUser.getText().toString(),mEdPwd.getText().toString(), mEdPhone.getText().toString())))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()
                 .execute(new StringCallBack() {
@@ -91,7 +100,6 @@ public class RegisterFragment extends Fragment {
                         Log.e(TAG, "onError: " + e);
                         Toast.makeText(getContext(),"网络异常，请稍后再试",Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onResponse(String response, int id) {
                         Log.d(TAG, "onResponse: " + response);

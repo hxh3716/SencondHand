@@ -52,11 +52,10 @@
                 android:layout_marginLeft="16dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/holder" />
+                android:src="@drawable/backkk" />
 
             <TextView
-
-                android:id="@+id/tx_myname"
+                android:id="@+id/tx_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"

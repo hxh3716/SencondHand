@@ -18,6 +18,7 @@ import android.widget.Toolbar;
 import com.google.gson.Gson;
 import com.hpu.sencondhand.R;
 import com.hpu.sencondhand.bean.User;
+import com.hpu.sencondhand.util.ImgPath;
 import com.hpu.sencondhand.util.StringCallBack;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -44,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     ImageView mImgPhone;
     @BindView(R.id.img_favorite)
     ImageView mImgFavorite;
+    @BindView(R.id.img_show)
+    ImageView mImgShow;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private Intent intent;
@@ -70,12 +73,13 @@ public class DetailActivity extends AppCompatActivity {
         mTxPrice.setText(intent.getStringExtra("price"));
         mTxPhone.setText(intent.getStringExtra("phone"));
         imgpath=intent.getStringExtra("imgpath");
+        mImgShow.setImageURI(ImgPath.getImage(imgpath,DetailActivity.this));
         id=intent.getStringExtra("id");
     }
     @OnClick({R.id.img_phone,R.id.img_favorite})
     public void onclick(View v){
         if (v.getId()==R.id.img_phone){
-            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" +"13585318669" ));//跳转到拨号界面，同时传递电话号码
+            Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" +mTxPhone.getText().toString() ));//跳转到拨号界面，同时传递电话号码
             startActivity(dialIntent);
         }else if (v.getId()==R.id.img_favorite){
             //收藏商品

@@ -83,10 +83,7 @@ public class LoginFragment extends Fragment {
                 }
                 break;
             case R.id.btn_login:
-              // login();
-                Intent intent=new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+               login();
                 break;
         }
     }

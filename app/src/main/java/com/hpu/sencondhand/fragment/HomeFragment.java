@@ -27,6 +27,7 @@ import com.hpu.sencondhand.R;
 import com.hpu.sencondhand.activity.CategoryActivity;
 import com.hpu.sencondhand.activity.DetailActivity;
 import com.hpu.sencondhand.bean.Product;
+import com.hpu.sencondhand.util.ImgPath;
 import com.hpu.sencondhand.util.StringCallBack;
 import com.hpu.sencondhand.widget.ClearEditText;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -82,7 +83,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //Getinfo();
+        //获取全部的商品列表
+        Getinfo();
         mSearched.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -167,6 +169,7 @@ public class HomeFragment extends Fragment {
             holder.mTxCategory.setText(datainfo.get(position).getCategory());
             holder.mTxDetail.setText(datainfo.get(position).getDetail());
             holder.mTxPrice.setText(datainfo.get(position).getPrie());
+            holder.mImg.setImageURI(ImgPath.getImage(datainfo.get(position).getImgPath(),getContext()));
 
             return convertView;
         }
@@ -279,8 +282,10 @@ public class HomeFragment extends Fragment {
                                 product = new Product();
                                 product.setOwner(category.getString("owner"));
                                 product.setTitle(category.getString("title"));
-                                product.setDetail(category.getString("contactDetail"));
+                                product.setContactDetail(category.getString("contactDetail"));
+                                product.setDetail(category.getString("decription"));
                                 product.setPrie(category.getString("price"));
+                                product.setImgPath(category.getString("imgPath"));
                                 idList.add(category.getString("id"));
                                 messageInfoList.add(product);
                             }
