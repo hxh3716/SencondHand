@@ -23,7 +23,6 @@ import butterknife.OnClick;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by：何学慧
  * Detail:我的界面fragment
  * on 2019/12/31
  */

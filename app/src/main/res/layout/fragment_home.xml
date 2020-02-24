@@ -137,10 +137,22 @@
         </LinearLayout>
     </LinearLayout>
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="5">
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"></ListView>
+        android:layout_height="match_parent"></ListView>
+    <TextView
+        android:id="@+id/tx_tip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:text="还未发布商品，快来发布第一个商品吧！"/>
+</FrameLayout>
+
 </LinearLayout>

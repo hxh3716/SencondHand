@@ -30,7 +30,6 @@ import static com.hpu.sencondhand.http.api.REGISTER;
 
 
 /**
- * Created by：何学慧
  * Detail:注册页面
  * on 2019/12/29
  */

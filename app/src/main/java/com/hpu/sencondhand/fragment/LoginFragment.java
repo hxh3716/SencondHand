@@ -32,10 +32,10 @@ import okhttp3.MediaType;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import static com.hpu.sencondhand.http.api.REGISTER;
+import static com.hpu.sencondhand.http.api.LOGIN;
+
 
 /**
- * Created by：何学慧
  * Detail:登录页面
  * on 2019/12/29
  */
@@ -101,7 +101,7 @@ public class LoginFragment extends Fragment {
             return;
         }
         OkHttpUtils.postString()
-                .url(REGISTER)
+                .url(LOGIN)
                 .content(new Gson().toJson(new User(mEdUser.getText().toString(), mEdPwd.getText().toString(), null)))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .build()

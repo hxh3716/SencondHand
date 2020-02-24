@@ -48,7 +48,6 @@ import static com.hpu.sencondhand.http.api.GETALLPRODUCT;
 
 
 /**
- * Created by：何学慧
  * Detail:主页fragment
  * on 2019/12/31
  */
@@ -56,6 +55,8 @@ import static com.hpu.sencondhand.http.api.GETALLPRODUCT;
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private View rootView;
+    @BindView(R.id.tx_tip)
+    TextView mTip;
     @BindView(R.id.ed_search)
     EditText mSearched;
     @BindView(R.id.listview)
@@ -274,6 +275,11 @@ public class HomeFragment extends Fragment {
                     public void onResponse(String response, int id) {
                         Product product=null;
                         Log.d(TAG, "onResponse: "+response);
+                        if (response.equals("")){
+                            mTip.setVisibility(View.GONE);
+                            mListview.setVisibility(View.INVISIBLE);
+                            return;
+                        }
                         try {
                             JSONArray jsonArray=new JSONArray(response);
                             idList=new ArrayList<>();

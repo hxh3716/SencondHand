@@ -44,7 +44,6 @@ import static com.hpu.sencondhand.http.api.ADDPRO;
 
 
 /**
- * Created by：何学慧
  * Detail:发布闲置界面
  * on 2019/12/31
  */

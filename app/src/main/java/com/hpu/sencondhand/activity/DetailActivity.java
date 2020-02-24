@@ -29,6 +29,7 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 import static com.hpu.sencondhand.http.api.REGISTER;
+import static com.hpu.sencondhand.http.api.SETFAVORITE;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -93,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
     public void favorite() {
         sp = getSharedPreferences("info", MODE_PRIVATE);
         OkHttpUtils.post()
-                .url(REGISTER)
+                .url(SETFAVORITE)
                 .addParams("username",sp.getString("username",null))
                 .addParams("productid", id)
                 .build()

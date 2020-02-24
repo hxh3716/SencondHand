@@ -55,6 +55,8 @@ public class CategoryActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.tx_toobal)
     TextView mTxTooBal;
+    @BindView(R.id.tx_tip)
+    TextView mTxTip;
 
     private String URL;
     private Intent intent;
@@ -80,7 +82,8 @@ public class CategoryActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //   Getinfo();
+        //获取接口数据
+           Getinfo();
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -195,6 +198,11 @@ public class CategoryActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Product product = null;
                         Log.d(TAG, "onResponse: " + response);
+                        if (response.equals("")){
+                            mListView.setVisibility(View.INVISIBLE);
+                            mTxTip.setVisibility(View.GONE);
+                            return;
+                        }
                         try {
                             idList=new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
