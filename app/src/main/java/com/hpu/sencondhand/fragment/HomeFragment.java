@@ -105,9 +105,9 @@ public class HomeFragment extends Fragment {
             }
         });
         //选中商品时的点击事件，进入商品详情页面
-        mListview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //点击后，跳转至详情页面
                 Intent intent=new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("title",messageInfoList.get(position).getTitle());
@@ -118,12 +118,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("id",idList.get(position));
                 startActivity(intent);
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        } );
     }
 
     class Mydoadapter extends BaseAdapter implements Filterable {
@@ -170,7 +165,11 @@ public class HomeFragment extends Fragment {
             holder.mTxCategory.setText(datainfo.get(position).getCategory());
             holder.mTxDetail.setText(datainfo.get(position).getDetail());
             holder.mTxPrice.setText(datainfo.get(position).getPrie());
-            holder.mImg.setImageURI(ImgPath.getImage(datainfo.get(position).getImgPath(),getContext()));
+            if (datainfo.get(position).getImgPath()!=null)
+                if (datainfo.get(position).getImgPath()!=null){
+                    holder.mImg.setImageURI(ImgPath.getImage(datainfo.get(position).getImgPath(),getContext()));
+                }
+
 
             return convertView;
         }
@@ -218,11 +217,13 @@ public class HomeFragment extends Fragment {
                         final Product value = values.get(i);
                         final String valuetitle = value.getTitle().toLowerCase();
                         final String valuename = value.getCategory().toLowerCase();
-                        if (valuetitle.startsWith(prefixString) || valuename.startsWith(prefixString)) {
+                        if (valuetitle.startsWith(prefixString) || valuename.startsWith(prefixString))  {
                             newValues.add(value);
-                        } else {
+                        }else {
                             final String[] words = valuetitle.split(" ");
-                            final int wordCount = words.length;
+                            final int wordCount = words.length;{
+                                newValues.add(value);
+                            }
 
                             // Start at index 0, in case valueText starts with space(s)
                             for (int k = 0; k < wordCount; k++) {
@@ -234,13 +235,13 @@ public class HomeFragment extends Fragment {
                         }
                     }
 
-                    results.values = newValues;
-                    results.count = newValues.size();
-                }
+            results.values = newValues;
+            results.count = newValues.size();
+        }
                 return results;
-            }
+    }
 
-            @Override
+    @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 datainfo = (List<Product>) results.values;
                 if (results.count > 0) {
@@ -261,7 +262,7 @@ public class HomeFragment extends Fragment {
      * 获得全部商品
      */
     public void Getinfo() {
-        OkHttpUtils.post()
+        OkHttpUtils.get()
                 .url(GETALLPRODUCT)
                 .build()
                 .execute(new StringCallBack() {
@@ -274,25 +275,28 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(String response, int id) {
                         Product product=null;
+                        System.out.println("---------------");
                         Log.d(TAG, "onResponse: "+response);
-                        if (response.equals("")){
+                        if (response.equals("[]")){
                             mTip.setVisibility(View.GONE);
                             mListview.setVisibility(View.INVISIBLE);
                             return;
                         }
+                        messageInfoList=new ArrayList<>();
                         try {
                             JSONArray jsonArray=new JSONArray(response);
                             idList=new ArrayList<>();
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject category = jsonArray.getJSONObject(i);
                                 product = new Product();
-                                product.setOwner(category.getString("owner"));
-                                product.setTitle(category.getString("title"));
-                                product.setContactDetail(category.getString("contactDetail"));
-                                product.setDetail(category.getString("decription"));
-                                product.setPrie(category.getString("price"));
-                                product.setImgPath(category.getString("imgPath"));
-                                idList.add(category.getString("id"));
+                                product.setOwner(category.optString("owner"));
+                                product.setTitle(category.optString("title"));
+                                product.setCategory(category.optString("category"));
+                                product.setContactDetail(category.optString("contactdetail"));
+                                product.setDetail(category.optString("description"));
+                                product.setPrie(category.optString("price"));
+                                product.setImgPath(category.optString("imgPath"));
+                                idList.add(category.optString("id"));
                                 messageInfoList.add(product);
                             }
                             if (messageInfoList.size()!=0){

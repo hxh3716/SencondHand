@@ -74,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         mTxPrice.setText(intent.getStringExtra("price"));
         mTxPhone.setText(intent.getStringExtra("phone"));
         imgpath=intent.getStringExtra("imgpath");
-        mImgShow.setImageURI(ImgPath.getImage(imgpath,DetailActivity.this));
+            mImgShow.setImageURI(ImgPath.getImage(imgpath,DetailActivity.this));
         id=intent.getStringExtra("id");
     }
     @OnClick({R.id.img_phone,R.id.img_favorite})

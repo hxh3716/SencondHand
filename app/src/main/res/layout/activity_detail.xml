@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="标题"
+            android:text="详情"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/tx_detail"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="标题"
+            android:text="价格"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/tx_price"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="标题"
+            android:text="联系方式"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/tx_phone"

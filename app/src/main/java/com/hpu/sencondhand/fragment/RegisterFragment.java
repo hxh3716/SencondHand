@@ -104,7 +104,7 @@ public class RegisterFragment extends Fragment {
                         Log.d(TAG, "onResponse: " + response);
                         if (response.equals("Message-001")){
                             Toast.makeText(getContext(),"注册成功！",Toast.LENGTH_SHORT).show();
-                        }else if (response.equals("Message-002 ")){
+                        }else if (response.equals("Message-002")){
                             Toast.makeText(getContext(),"用户已存在",Toast.LENGTH_SHORT).show();
                         }else if (response.equals("Message-000")){
                             Toast.makeText(getContext(),"网络异常，请稍后再试",Toast.LENGTH_SHORT).show();

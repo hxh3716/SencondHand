@@ -1,12 +1,17 @@
 package com.hpu.sencondhand.util;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,14 +50,28 @@ public class ImgPath {
     }
     //通过路径获得图片
     public static Uri getImage(String filename,Context context){
-        FileInputStream fs = null;
-        try {
-            fs = new FileInputStream(context.getExternalFilesDir(null).getAbsolutePath()+"/"+filename+".jpg");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        PackageManager pm = context.getPackageManager();
+        boolean permission = (PackageManager.PERMISSION_GRANTED )==
+                pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE","com.hpu.sencondhand");
+        if (!permission){
+            ActivityCompat.requestPermissions((Activity) context,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1
+            );
+            return  null;
+
+        }else {
+            FileInputStream fs = null;
+            try {
+                fs = new FileInputStream(context.getExternalFilesDir(null).getAbsolutePath()+"/"+filename+".jpg");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Bitmap bitmap= BitmapFactory.decodeStream(fs);
+            Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(),bitmap , null,null));
+            return imageUri;
         }
-        Bitmap bitmap= BitmapFactory.decodeStream(fs);
-        Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(),bitmap , null,null));
-   return imageUri;
+
     }
 }

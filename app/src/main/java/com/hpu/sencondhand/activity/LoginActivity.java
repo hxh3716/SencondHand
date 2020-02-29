@@ -1,12 +1,14 @@
 package com.hpu.sencondhand.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -59,12 +61,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        ActivityCompat.requestPermissions(LoginActivity.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1
+        );
+
 
         initVPager();
 
 
     }
-
 
 
     /**
@@ -89,10 +96,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 current_index = position;
-                if (current_index==0){
+                if (current_index == 0) {
                     TvLogin.setTextColor(getResources().getColor(R.color.blue));
                     TvReg.setTextColor(getResources().getColor(R.color.balck));
-                }else {
+                } else {
                     TvReg.setTextColor(getResources().getColor(R.color.blue));
                     TvLogin.setTextColor(getResources().getColor(R.color.balck));
                 }
@@ -125,8 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-//注册和登录切换按钮的点击
+    //注册和登录切换按钮的点击
     @OnClick({R.id.tx_login, R.id.tx_reg})
     public void onClick(View view) {
         switch (view.getId()) {

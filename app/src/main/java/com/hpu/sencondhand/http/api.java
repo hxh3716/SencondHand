@@ -10,7 +10,7 @@ import java.util.logging.Handler;
  */
 
 public interface api {
-String HOME="http://192.168.1.2:8080/";
+String HOME="http://192.168.1.12:8080/";
 String LOGIN = HOME +"signin";
 String REGISTER = HOME +"signup";
 String ADDPRO = HOME +"addproduct";

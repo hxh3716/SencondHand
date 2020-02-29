@@ -10,8 +10,8 @@ public class Product {
     private String imgPath;
     private String title;
     private String category;
-    private String prie;
-    private String detail;
+    private String price;
+    private String description;
     private String contactDetail;
 
     public Product(String owner, String imgPath, String title, String category, String prie,String contactDetail, String detail) {
@@ -19,9 +19,9 @@ public class Product {
         this.imgPath = imgPath;
         this.title = title;
         this.category = category;
-        this.prie = prie;
+        this.price = prie;
         this.contactDetail=contactDetail;
-        this.detail = detail;
+        this.description = detail;
     }
 
     public Product() {
@@ -60,19 +60,19 @@ public class Product {
     }
 
     public String getPrie() {
-        return prie;
+        return price;
     }
 
     public void setPrie(String prie) {
-        this.prie = prie;
+        this.price = prie;
     }
 
     public String getDetail() {
-        return detail;
+        return description;
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.description = detail;
     }
 
     public String getContactDetail() {
