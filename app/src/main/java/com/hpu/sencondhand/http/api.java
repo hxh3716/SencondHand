@@ -21,4 +21,5 @@ String GETMYPRODUCT = HOME +"getmyproduct";
 String GETFAVORITE= HOME +"getfavorite";
 String CATEGORY= HOME +"category";
 String SETFAVORITE=HOME+"setfavorite";
+String FINDBYTITLE=HOME+"findbytitle";
 }
